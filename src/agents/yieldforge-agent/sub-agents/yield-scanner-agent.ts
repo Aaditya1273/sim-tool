@@ -1,6 +1,6 @@
 import { AgentBuilder } from "@iqai/adk";
 import dedent from "dedent";
-import { scanYieldPools, getMarketConditions } from "../tools.js";
+import { scanYieldPools, getMarketConditions } from "../tools";
 
 /**
  * Yield Scanner Agent

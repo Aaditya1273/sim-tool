@@ -1,4 +1,4 @@
-import getYieldForgeAgent from "./agents/yieldforge-agent/agent.js";
+import getYieldForgeAgent from "./agents/yieldforge-agent/agent";
 
 /**
  * YieldForge Agent - Entry Point

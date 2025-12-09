@@ -1,9 +1,9 @@
 import { AgentBuilder, ParallelAgent } from "@iqai/adk";
 import dedent from "dedent";
-import { yieldForgeTools } from "./tools.js";
-import { getYieldScannerAgent } from "./sub-agents/yield-scanner-agent.js";
-import { getRiskAnalyzerAgent } from "./sub-agents/risk-analyzer-agent.js";
-import { getStrategySimulatorAgent } from "./sub-agents/strategy-simulator-agent.js";
+import { yieldForgeTools } from "./tools";
+import { getYieldScannerAgent } from "./sub-agents/yield-scanner-agent";
+import { getRiskAnalyzerAgent } from "./sub-agents/risk-analyzer-agent";
+import { getStrategySimulatorAgent } from "./sub-agents/strategy-simulator-agent";
 
 // Environment configuration
 const env = {

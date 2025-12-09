@@ -1,6 +1,6 @@
 import { AgentBuilder } from "@iqai/adk";
 import dedent from "dedent";
-import { simulateHarvest, getFraxPools } from "../tools.js";
+import { simulateHarvest, getFraxPools } from "../tools";
 
 /**
  * Strategy Simulator Agent

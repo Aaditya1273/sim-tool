@@ -1,6 +1,6 @@
 import { AgentBuilder } from "@iqai/adk";
 import dedent from "dedent";
-import { analyzeRiskProfile } from "../tools.js";
+import { analyzeRiskProfile } from "../tools";
 
 /**
  * Risk Analyzer Agent
