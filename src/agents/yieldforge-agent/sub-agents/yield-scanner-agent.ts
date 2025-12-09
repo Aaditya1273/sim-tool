@@ -8,6 +8,7 @@ import { scanYieldPools, getMarketConditions } from "../tools";
  */
 export const getYieldScannerAgent = () =>
 	AgentBuilder.create("yield_scanner")
+		.withModel(process.env.LLM_MODEL || "gemini-2.5-flash")
 		.withDescription(
 			"Specialized agent for scanning DeFi protocols and identifying optimal yield opportunities",
 		)

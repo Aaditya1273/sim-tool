@@ -8,6 +8,7 @@ import { analyzeRiskProfile } from "../tools";
  */
 export const getRiskAnalyzerAgent = () =>
 	AgentBuilder.create("risk_analyzer")
+		.withModel(process.env.LLM_MODEL || "gemini-2.5-flash")
 		.withDescription(
 			"Specialized agent for analyzing risk profiles and recommending personalized yield strategies",
 		)

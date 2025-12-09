@@ -1,4 +1,4 @@
-import { AgentBuilder, ParallelAgent } from "@iqai/adk";
+import { AgentBuilder } from "@iqai/adk";
 import dedent from "dedent";
 import { yieldForgeTools } from "./tools";
 import { getYieldScannerAgent } from "./sub-agents/yield-scanner-agent";
@@ -16,16 +16,9 @@ const env = {
  */
 const getYieldForgeAgent = async () => {
 	// Initialize sub-agents
-	const yieldScanner = await getYieldScannerAgent();
-	const riskAnalyzer = await getRiskAnalyzerAgent();
-	const strategySimulator = await getStrategySimulatorAgent();
-
-	// Create parallel agent for simultaneous operations
-	const parallelAnalyzer = new ParallelAgent({
-		name: "parallel_analyzer",
-		description: "Runs yield scanning and risk analysis simultaneously",
-		agents: [yieldScanner, riskAnalyzer],
-	});
+	const yieldScanner = getYieldScannerAgent();
+	const riskAnalyzer = getRiskAnalyzerAgent();
+	const strategySimulator = getStrategySimulatorAgent();
 
 	return AgentBuilder.create("yieldforge_agent")
 		.withModel(env.LLM_MODEL)
@@ -94,7 +87,7 @@ const getYieldForgeAgent = async () => {
 			`,
 		)
 		.withTools(...yieldForgeTools)
-		.withSubAgents(yieldScanner, riskAnalyzer, strategySimulator, parallelAnalyzer)
+		.withSubAgents(yieldScanner, riskAnalyzer, strategySimulator)
 		.build();
 };
 

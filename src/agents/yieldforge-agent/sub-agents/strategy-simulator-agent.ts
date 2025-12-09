@@ -8,6 +8,7 @@ import { simulateHarvest, getFraxPools } from "../tools";
  */
 export const getStrategySimulatorAgent = () =>
 	AgentBuilder.create("strategy_simulator")
+		.withModel(process.env.LLM_MODEL || "gemini-2.5-flash")
 		.withDescription(
 			"Specialized agent for simulating yield harvesting strategies and projecting returns",
 		)
