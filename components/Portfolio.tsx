@@ -39,7 +39,7 @@ export function Portfolio() {
           <h3>🎯 Demo Mode - AI Agent Active</h3>
           <p>YieldForge AI agent is fully functional and analyzing real DeFi data!</p>
           <div className={styles.steps}>
-            <h4>✨ What's Working:</h4>
+            <h4>✨ What&apos;s Working:</h4>
             <ul>
               <li>✅ AI-powered yield scanning (50+ protocols)</li>
               <li>✅ Real-time APY data from DeFiLlama</li>

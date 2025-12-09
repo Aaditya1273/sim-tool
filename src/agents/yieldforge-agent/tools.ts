@@ -460,7 +460,7 @@ export const checkFraxtalStatus = createTool({
 				checkWalletStatus,
 				getFaucetUrl,
 				fraxtalTestnet,
-			} = await import("../../utils/blockchain.js");
+			} = await import("../../utils/blockchain");
 
 			const provider = getFraxtalProvider();
 			const walletStatus = await checkWalletStatus();

@@ -26,16 +26,29 @@ export async function POST(request: NextRequest) {
     const agent = await getAgent()
 
     // Process message with agent
-    // Note: This is a simplified version. In production, you'd want to:
-    // 1. Maintain conversation history
-    // 2. Handle streaming responses
-    // 3. Implement proper error handling
-    // 4. Add rate limiting
+    const result = await agent.run(message)
     
-    const response = await agent.run(message)
+    // Extract the text response from the agent result
+    let responseText = 'Agent processing complete'
+    
+    if (typeof result === 'string') {
+      responseText = result
+    } else if (result?.text) {
+      responseText = result.text
+    } else if (result?.content) {
+      responseText = result.content
+    } else if (result?.response) {
+      responseText = result.response
+    } else if (result?.messages && result.messages.length > 0) {
+      const lastMessage = result.messages[result.messages.length - 1]
+      responseText = lastMessage.content || lastMessage.text || JSON.stringify(lastMessage)
+    } else {
+      // Fallback: stringify the result
+      responseText = JSON.stringify(result, null, 2)
+    }
 
     return NextResponse.json({
-      response: response || 'Agent processing complete',
+      response: responseText,
       timestamp: new Date().toISOString(),
     })
   } catch (error: any) {
