@@ -79,23 +79,23 @@ Respond naturally to: "${message}"`
     
     // Intelligently decide which tools to call
     if (lowerMessage.includes('yield') || lowerMessage.includes('apy') || lowerMessage.includes('pool') || lowerMessage.includes('opportunit')) {
-      toolData = await scanYieldPools.func({ minApy: 5, maxRisk: 'medium' })
+      toolData = await scanYieldPools.fn({ minApy: 5, maxRisk: 'medium' })
     } else if (lowerMessage.includes('eth') && lowerMessage.includes('price')) {
-      toolData = await getCurrentEthPrice.func({})
+      toolData = await getCurrentEthPrice.fn()
     } else if (lowerMessage.includes('frax')) {
-      toolData = await getFraxPools.func({ includeKRWQ: true })
+      toolData = await getFraxPools.fn({ includeKRWQ: true })
     } else if (lowerMessage.includes('simulat') || lowerMessage.includes('return')) {
       const amount = extractAmount(message) || 1000
-      toolData = await simulateHarvest.func({
+      toolData = await simulateHarvest.fn({
         poolIds: ['sample-pool'],
         investmentAmount: amount,
         durationDays: 30,
         autoCompound: true
       })
     } else if (lowerMessage.includes('market') || lowerMessage.includes('overview')) {
-      toolData = await getMarketConditions.func()
+      toolData = await getMarketConditions.fn()
     } else if (lowerMessage.includes('fraxtal') || lowerMessage.includes('testnet')) {
-      toolData = await checkFraxtalStatus.func()
+      toolData = await checkFraxtalStatus.fn()
     }
     
     // Create enhanced prompt with tool data
@@ -144,7 +144,7 @@ Try asking: "Show me high yield opportunities" or "I want to earn 10% APY with l
     // Try to get real data from tools
     try {
       const { scanYieldPools } = await import('@/src/agents/yieldforge-agent/tools')
-      const realData = await scanYieldPools.func({ minApy: 5, maxRisk: 'medium' })
+      const realData = await scanYieldPools.fn({ minApy: 5, maxRisk: 'medium' })
       
       if (realData && realData.filteredPools && realData.filteredPools.length > 0) {
         const topPools = realData.filteredPools.slice(0, 5)
