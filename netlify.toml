@@ -1,9 +1,9 @@
 [build]
-  publish = ".next"
-  command = "npm run build"
+  publish = "."
+  command = "npm install && npm run dev"
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
 
 [[redirects]]
   from = "/*"
