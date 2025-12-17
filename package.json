@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbo=false",
-		"build": "next build --no-turbo",
+		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
 		"agent:dev": "adk web",
