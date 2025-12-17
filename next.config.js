@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Disable Turbopack to use webpack (fixes thread-stream issues)
   experimental: {
-    turbo: false,
     serverActions: {
       bodySizeLimit: '2mb',
     },
@@ -19,11 +17,16 @@ const nextConfig = {
   },
   poweredByHeader: false,
   compress: true,
-  // Fix thread-stream test files issue for deployment
-  webpack: (config, { isServer, dev }) => {
-    // Completely exclude thread-stream test directory and problematic files
+  // Targeted webpack configuration to handle thread-stream test files
+  webpack: (config, { isServer }) => {
+    // Only exclude test files, not the main functionality
     config.module.rules.push({
-      test: /node_modules\/thread-stream\/(test|bench)/,
+      test: /node_modules\/thread-stream\/test\/.*\.(js|mjs|ts)$/,
+      use: 'ignore-loader'
+    })
+    
+    config.module.rules.push({
+      test: /node_modules\/thread-stream\/bench\.js$/,
       use: 'ignore-loader'
     })
     
@@ -32,18 +35,9 @@ const nextConfig = {
       use: 'ignore-loader'
     })
     
-    // Exclude all test files from all packages
-    config.module.rules.push({
-      test: /node_modules\/.*\/(test|tests|spec|__tests__)\/.*\.(js|mjs|ts)$/,
-      use: 'ignore-loader'
-    })
-    
-    // Add comprehensive resolve aliases to prevent loading problematic files
+    // Add resolve aliases only for problematic test dependencies
     config.resolve.alias = {
       ...config.resolve.alias,
-      'thread-stream/test': false,
-      'thread-stream/bench.js': false,
-      'thread-stream/LICENSE': false,
       'tap': false,
       'fastbench': false,
       'desm': false,
@@ -52,7 +46,7 @@ const nextConfig = {
       'pino-elasticsearch': false,
     }
     
-    // Add fallbacks for client-side
+    // Client-side fallbacks for Node.js modules
     if (!isServer) {
       config.resolve.fallback = {
         ...config.resolve.fallback,
@@ -60,26 +54,13 @@ const nextConfig = {
         net: false,
         tls: false,
         child_process: false,
-        crypto: false,
-        stream: false,
-        util: false,
-        buffer: false,
-        path: false,
-        os: false,
+        crypto: require.resolve('crypto-browserify'),
+        stream: require.resolve('stream-browserify'),
+        util: require.resolve('util'),
+        buffer: require.resolve('buffer'),
+        path: require.resolve('path-browserify'),
+        os: require.resolve('os-browserify/browser'),
       }
-    }
-    
-    // Ignore missing modules in production
-    config.externals = config.externals || []
-    if (!isServer) {
-      config.externals.push({
-        'tap': 'tap',
-        'fastbench': 'fastbench',
-        'desm': 'desm',
-        'why-is-node-running': 'why-is-node-running',
-        'tape': 'tape',
-        'pino-elasticsearch': 'pino-elasticsearch'
-      })
     }
     
     return config

@@ -1,9 +1,10 @@
 [build]
-  command = "npm run build"
+  command = "npm ci && npm run build"
   publish = ".next"
 
 [build.environment]
   NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
   GOOGLE_API_KEY = "AIzaSyDRbxhMa8u82D4iOOK7umOhFUfizW_mBqM"
   LLM_MODEL = "gemini-2.5-flash"
   FRAXTAL_RPC_URL = "https://rpc.testnet.frax.com"

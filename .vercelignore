@@ -1,0 +1,12 @@
+# Ignore problematic test files
+node_modules/thread-stream/test/
+node_modules/thread-stream/bench.js
+node_modules/thread-stream/LICENSE
+node_modules/thread-stream/README.md
+node_modules/*/test/
+node_modules/*/tests/
+**/*.test.js
+**/*.test.ts
+**/*.test.mjs
+**/*.spec.js
+**/*.spec.ts

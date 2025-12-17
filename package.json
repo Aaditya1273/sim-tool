@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "next build",
+		"build": "NEXT_PRIVATE_SKIP_TURBO=1 next build",
 		"start": "next start",
 		"lint": "next lint",
 		"agent:dev": "adk web",
@@ -27,7 +27,7 @@
 		"dotenv": "^17.2.2",
 		"ethers": "^6.13.0",
 		"framer-motion": "^11.0.0",
-		"next": "15.1.0",
+		"next": "16.0.10",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0",
 		"react-icons": "^5.0.0",
@@ -41,12 +41,18 @@
 		"@types/node": "^22.0.0",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
+		"buffer": "^6.0.3",
+		"crypto-browserify": "^3.12.0",
 		"eslint": "^9.0.0",
-		"eslint-config-next": "15.1.0",
+		"eslint-config-next": "16.0.10",
 		"hardhat": "^2.19.0",
 		"ignore-loader": "^0.1.2",
+		"os-browserify": "^0.3.0",
+		"path-browserify": "^1.0.1",
+		"stream-browserify": "^3.0.0",
 		"tsx": "^4.20.5",
-		"typescript": "^5.9.2"
+		"typescript": "^5.9.2",
+		"util": "^0.12.5"
 	},
 	"engines": {
 		"node": ">=20.0.0",
