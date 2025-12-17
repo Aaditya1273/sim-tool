@@ -4,8 +4,8 @@
 	"description": "YieldForge - Autonomous DeFi Yield Optimizer with Multi-Agent Architecture",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
+		"dev": "next dev --turbo=false",
+		"build": "next build --no-turbo",
 		"start": "next start",
 		"lint": "next lint",
 		"agent:dev": "adk web",
