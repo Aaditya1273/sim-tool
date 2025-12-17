@@ -7,7 +7,6 @@ const nextConfig = {
     },
   },
   env: {
-    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
     LLM_MODEL: process.env.LLM_MODEL,
     FRAXTAL_RPC_URL: process.env.FRAXTAL_RPC_URL,
     FRAXTAL_CHAIN_ID: process.env.FRAXTAL_CHAIN_ID,
@@ -24,17 +23,17 @@ const nextConfig = {
       test: /node_modules\/thread-stream\/test\/.*\.(js|mjs|ts)$/,
       use: 'ignore-loader'
     })
-    
+
     config.module.rules.push({
       test: /node_modules\/thread-stream\/bench\.js$/,
       use: 'ignore-loader'
     })
-    
+
     config.module.rules.push({
       test: /node_modules\/thread-stream\/LICENSE$/,
       use: 'ignore-loader'
     })
-    
+
     // Add resolve aliases only for problematic test dependencies
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -45,7 +44,7 @@ const nextConfig = {
       'tape': false,
       'pino-elasticsearch': false,
     }
-    
+
     // Client-side fallbacks for Node.js modules
     if (!isServer) {
       config.resolve.fallback = {
@@ -62,7 +61,7 @@ const nextConfig = {
         os: require.resolve('os-browserify/browser'),
       }
     }
-    
+
     return config
   },
 }
