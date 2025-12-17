@@ -1,0 +1,17 @@
+{
+  "network": "fraxtalTestnet",
+  "chainId": "2523",
+  "deployer": "0x10625674f9780E604074e94b6F6f6F026f3a1BdA",
+  "timestamp": "2025-12-17T03:04:18.705Z",
+  "contracts": {
+    "YieldForgeToken": {
+      "address": "0x6b542A9361A7dd16c0b6396202A192326154a1e2",
+      "totalSupply": "1000000000000000000000000000"
+    },
+    "YieldForgeVault": {
+      "address": "0xa4F78fbf10440afEa067A8fc5391d87f78919107",
+      "depositToken": "0x6b542A9361A7dd16c0b6396202A192326154a1e2",
+      "feeRecipient": "0x10625674f9780E604074e94b6F6f6F026f3a1BdA"
+    }
+  }
+}
