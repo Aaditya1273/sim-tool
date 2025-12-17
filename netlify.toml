@@ -3,7 +3,7 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "22"
+  NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
   GOOGLE_API_KEY = "AIzaSyDRbxhMa8u82D4iOOK7umOhFUfizW_mBqM"
   LLM_MODEL = "gemini-2.5-flash"

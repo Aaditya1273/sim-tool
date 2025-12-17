@@ -78,24 +78,30 @@ Respond naturally to: "${message}"`
     const lowerMessage = message.toLowerCase()
     
     // Intelligently decide which tools to call
-    if (lowerMessage.includes('yield') || lowerMessage.includes('apy') || lowerMessage.includes('pool') || lowerMessage.includes('opportunit')) {
-      toolData = await scanYieldPools.fn({ minApy: 5, maxRisk: 'medium' })
-    } else if (lowerMessage.includes('eth') && lowerMessage.includes('price')) {
-      toolData = await getCurrentEthPrice.fn()
-    } else if (lowerMessage.includes('frax')) {
-      toolData = await getFraxPools.fn({ includeKRWQ: true })
-    } else if (lowerMessage.includes('simulat') || lowerMessage.includes('return')) {
-      const amount = extractAmount(message) || 1000
-      toolData = await simulateHarvest.fn({
-        poolIds: ['sample-pool'],
-        investmentAmount: amount,
-        durationDays: 30,
-        autoCompound: true
-      })
-    } else if (lowerMessage.includes('market') || lowerMessage.includes('overview')) {
-      toolData = await getMarketConditions.fn()
-    } else if (lowerMessage.includes('fraxtal') || lowerMessage.includes('testnet')) {
-      toolData = await checkFraxtalStatus.fn()
+    try {
+      if (lowerMessage.includes('yield') || lowerMessage.includes('apy') || lowerMessage.includes('pool') || lowerMessage.includes('opportunit')) {
+        // Call the tool function directly (casting as any to avoid strict type issues with adk generic types)
+        toolData = await (scanYieldPools as any).fn({ minApy: 5, maxRisk: 'medium' })
+      } else if (lowerMessage.includes('eth') && lowerMessage.includes('price')) {
+        toolData = await (getCurrentEthPrice as any).fn()
+      } else if (lowerMessage.includes('frax')) {
+        toolData = await (getFraxPools as any).fn({ includeKRWQ: true })
+      } else if (lowerMessage.includes('simulat') || lowerMessage.includes('return')) {
+        const amount = extractAmount(message) || 1000
+        toolData = await (simulateHarvest as any).fn({
+          poolIds: ['sample-pool'],
+          investmentAmount: amount,
+          durationDays: 30,
+          autoCompound: true
+        })
+      } else if (lowerMessage.includes('market') || lowerMessage.includes('overview')) {
+        toolData = await (getMarketConditions as any).fn()
+      } else if (lowerMessage.includes('fraxtal') || lowerMessage.includes('testnet')) {
+        toolData = await (checkFraxtalStatus as any).fn()
+      }
+    } catch (toolError) {
+      console.log('Tool execution failed, continuing without tool data:', toolError)
+      toolData = null
     }
     
     // Create enhanced prompt with tool data
@@ -144,7 +150,7 @@ Try asking: "Show me high yield opportunities" or "I want to earn 10% APY with l
     // Try to get real data from tools
     try {
       const { scanYieldPools } = await import('@/src/agents/yieldforge-agent/tools')
-      const realData = await scanYieldPools.fn({ minApy: 5, maxRisk: 'medium' })
+      const realData = await (scanYieldPools as any).fn({ minApy: 5, maxRisk: 'medium' })
       
       if (realData && realData.filteredPools && realData.filteredPools.length > 0) {
         const topPools = realData.filteredPools.slice(0, 5)
